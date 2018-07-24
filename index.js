@@ -37,5 +37,8 @@ app.get('/website-speed', function (req, res) {
         res.status(400).send({ err: err.message });
     });
 })
-app.listen(4000);
+
+app.listen(process.env.PORT || 4000, () => {
+    console.log('started server')
+});
 // exports.api = functions.https.onRequest(app);
