@@ -2,7 +2,7 @@
 var express = require('express')
 var router = express.Router()
 const request = require('request')
-const http = require('http')
+const https = require('https')
 router.get('/token/generate', (req, res) => {
     const uid = req.param('uid', 0);
     const token = genToken(uid)
@@ -17,7 +17,7 @@ router.get('/token/generate', (req, res) => {
     //         res.send({ status: 'success', shortened_url: JSON.parse(body).shortenedUrl })
     //     }
     // })
-    http.get({ host: '123link.co', path: '/api?api=555b4e5419214f7825a381e19bfa5fe0ec92e2c8&url=https://money.opencoder.org/#/earn-money/' + token }, (resp) => {
+    https.get('https://123link.co/api?api=555b4e5419214f7825a381e19bfa5fe0ec92e2c8&url=https://money.opencoder.org/#/earn-money/' + token, (resp) => {
         let data = '';
 
         resp.on('data', (chunk) => {
@@ -28,10 +28,12 @@ router.get('/token/generate', (req, res) => {
             console.log(data)
             const dataJson = JSON.parse(data)
             if (dataJson.status === 'error') {
-                res.setHeader("Access-Control-Allow-Origin", "*").status(400).send({ status: 'error', msg: 'Đã có lỗi xảy ra' })
+                res.setHeader("Access-Control-Allow-Origin", "*").status(400)
+                res.send({ status: 'error', msg: 'Đã có lỗi xảy ra' })
             } else {
                 genToken(uid)
-                res.setHeader("Access-Control-Allow-Origin", "*").send({ status: 'success', shortened_url: dataJson.shortenedUrl })
+                res.setHeader("Access-Control-Allow-Origin", "*")
+                res.send({ status: 'success', shortened_url: dataJson.shortenedUrl })
             }
         })
     });
