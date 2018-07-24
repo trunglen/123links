@@ -28,10 +28,10 @@ router.get('/token/generate', (req, res) => {
             console.log(data)
             const dataJson = JSON.parse(data)
             if (dataJson.status === 'error') {
-                res.status(400).send({ status: 'error', msg: 'Đã có lỗi xảy ra' })
+                res.setHeader("Access-Control-Allow-Origin", "*").status(400).send({ status: 'error', msg: 'Đã có lỗi xảy ra' })
             } else {
                 genToken(uid)
-                res.send({ status: 'success', shortened_url: dataJson.shortenedUrl })
+                res.setHeader("Access-Control-Allow-Origin", "*").send({ status: 'success', shortened_url: dataJson.shortenedUrl })
             }
         })
     });
