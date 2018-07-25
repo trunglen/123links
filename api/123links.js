@@ -17,7 +17,7 @@ router.get('/token/generate', (req, res) => {
     //         res.send({ status: 'success', shortened_url: JSON.parse(body).shortenedUrl })
     //     }
     // })
-    https.get('https://123link.co/api?api=555b4e5419214f7825a381e19bfa5fe0ec92e2c8&url=https://money.opencoder.org#/earn-money/' + token, (resp) => {
+    https.get('https://123link.co/api?api=555b4e5419214f7825a381e19bfa5fe0ec92e2c8&url=https://money.opencoder.org/!/earn-money/' + token, (resp) => {
         let data = '';
 
         resp.on('data', (chunk) => {
